@@ -2,7 +2,7 @@
 #include<string.h>
 #include<stdlib.h>
 
-// ÊµÏÖ²¨À¼±í´ïÊ½
+// å®žçŽ°æ³¢å…°è¡¨è¾¾å¼
 char* PolishNotation(char* str1) 
 {
 	int i = 0;
@@ -28,7 +28,7 @@ char* PolishNotation(char* str1)
 	}
 	if (str1[i] == '(') 
 	{
-		int num_par = 1;//×óÀ¨ºÅµÄÊýÁ¿-ÓÒÀ¨ºÅµÄÊýÁ¿
+		int num_par = 1;//å·¦æ‹¬å·çš„æ•°é‡-å³æ‹¬å·çš„æ•°é‡
 		i++;
 		while (num_par) {
 			switch (str1[i]) {
@@ -65,12 +65,12 @@ char* PolishNotation(char* str1)
 	}
 	sym[1] = '\0';
 	str1 = strcpy(str1, sym);
-	str1 = strcat(str1, PolishNotation(pre));//µÝ¹éÔËËã·ûÇ°Ãæ×Ö·û´®
-	str1 = strcat(str1, PolishNotation(suf));//µÝ¹éÔËËã·ûºóÃæ×Ö·û´®
+	str1 = strcat(str1, PolishNotation(pre));//é€’å½’è¿ç®—ç¬¦å‰é¢å­—ç¬¦ä¸²
+	str1 = strcat(str1, PolishNotation(suf));//é€’å½’è¿ç®—ç¬¦åŽé¢å­—ç¬¦ä¸²
 	return str1;
 }
 
-// ÊµÏÖÄæ²¨À¼±í´ïÊ½
+// å®žçŽ°é€†æ³¢å…°è¡¨è¾¾å¼
 char* RPN(char* str1) 
 {
 	int i = 0;
@@ -103,7 +103,7 @@ char* RPN(char* str1)
 	}
 	if (str1[i] == '(') 
 	{
-		int num_par = 1;//×óÀ¨ºÅµÄÊýÁ¿-ÓÒÀ¨ºÅµÄÊýÁ¿
+		int num_par = 1;//å·¦æ‹¬å·çš„æ•°é‡-å³æ‹¬å·çš„æ•°é‡
 		i++;
 		while (num_par) 
 		{
@@ -142,13 +142,13 @@ char* RPN(char* str1)
 		num_s++;
 		i++;
 	}
-	str1 = strcpy(str1, RPN(pre));//µÝ¹éÔËËã·ûÇ°Ãæ×Ö·û´®
-	str1 = strcat(str1, RPN(suf));//µÝ¹éÔËËã·ûºóÃæ×Ö·û´®
+	str1 = strcpy(str1, RPN(pre));//é€’å½’è¿ç®—ç¬¦å‰é¢å­—ç¬¦ä¸²
+	str1 = strcat(str1, RPN(suf));//é€’å½’è¿ç®—ç¬¦åŽé¢å­—ç¬¦ä¸²
 	str1 = strcat(str1, sym);
 	return str1;
 }
 
-//½«ÊäÈëµÄ±í´ïÊ½±ê×¼»¯
+//å°†è¾“å…¥çš„è¡¨è¾¾å¼æ ‡å‡†åŒ–
 char* Standardize(char* str1)
 {
 	char str2[50] = { '\0' };
@@ -156,7 +156,7 @@ char* Standardize(char* str1)
 	while (str1[i]!='\0')
 	{
 		int flag = 0;//
-		if (OperatorQ(str1[i]) > 3 && OperatorQ(str1[i + 1]) == 0 && OperatorQ(str1[i + 2]) > 3)//p|q|rÐÎ
+		if (OperatorQ(str1[i]) > 3 && OperatorQ(str1[i + 1]) == 0 && OperatorQ(str1[i + 2]) > 3)//p|q|rå½¢
 		{
 			if (OperatorQ(str1[i]) <= OperatorQ(str1[i + 2])) 
 			{
@@ -172,14 +172,14 @@ char* Standardize(char* str1)
 				}
 				str1 = strcpy(str1, str2);
 			}
-			else //p|q&ÐÎ
+			else //p|q&å½¢
 			{
 				for (int j = 0; j <= i ; j++)
 				{
 					str2[j] = str1[j];
 				}
 				str2[i + 1] = '(';
-				if (OperatorQ(str1[i + 3]) == 0) //p|q&sÐÎ
+				if (OperatorQ(str1[i + 3]) == 0) //p|q&så½¢
 				{
 					str2[i + 2] = str1[i + 1];
 					str2[i + 3] = str1[i + 2];
@@ -190,7 +190,7 @@ char* Standardize(char* str1)
 						str2[k + 2] = str1[k];
 					}
 				}
-				else if (OperatorQ(str1[i + 3]) == 1) //p|q&!1ÐÎ
+				else if (OperatorQ(str1[i + 3]) == 1) //p|q&!1å½¢
 				{
 					//str2[i + 2] = 1;
 					for (int j = i + 4; j <= strlen(str1) - 1; j++) {
@@ -208,7 +208,7 @@ char* Standardize(char* str1)
 						}
 					}
 				}
-				else if (OperatorQ(str1[i + 3]) == 2) //p|q&(r|s)ÐÎ
+				else if (OperatorQ(str1[i + 3]) == 2) //p|q&(r|s)å½¢
 				{
 					for (int j = i + 4; j <= strlen(str1) - 1; j++) {
 						if (OperatorQ(str1[j]) == 3 ) {
@@ -228,13 +228,13 @@ char* Standardize(char* str1)
 				str1 = strcpy(str1, str2);
 			}
 		}
-		else if (OperatorQ(str1[i]) > 3 && OperatorQ(str1[i + 1]) == 1)//p|!q|sÐÎ
+		else if (OperatorQ(str1[i]) > 3 && OperatorQ(str1[i + 1]) == 1)//p|!q|så½¢
 		{
 			for (int j = i+2; j < strlen(str1) - 1; j++)
 			{
 				if (OperatorQ(str1[j]) == 0 && OperatorQ(str1[j + 1]) > 3) 
 				{
-					if (OperatorQ(str1[i]) <= OperatorQ(str1[j + 1]))//p|!q|sÐÎ
+					if (OperatorQ(str1[i]) <= OperatorQ(str1[j + 1]))//p|!q|så½¢
 					{
 						str2[0] = '(';
 						for (int k = 0; k <= j; k++)
@@ -247,14 +247,14 @@ char* Standardize(char* str1)
 							str2[k + 2] = str1[k];
 						}
 					}
-					else//p|(q|r)&ÐÎ
+					else//p|(q|r)&å½¢
 					{
 						for (int j1 = 0; j1 <= i; j1++)
 						{
 							str2[j1] = str1[j1];
 						}
 						str2[i + 1] = '(';
-						if (OperatorQ(str1[j + 2]) == 0)//p|!q&sÐÎ
+						if (OperatorQ(str1[j + 2]) == 0)//p|!q&så½¢
 						{
 							for (int k = i + 1; k <= j + 3; k++)
 							{
@@ -266,7 +266,7 @@ char* Standardize(char* str1)
 								str2[k + 2] = str1[k];
 							}
 						}
-						else if (OperatorQ(str1[j + 2]) == 1)//p|!q&!sÐÎ
+						else if (OperatorQ(str1[j + 2]) == 1)//p|!q&!så½¢
 						{
 							for (int j2 = j + 3; j2 <= strlen(str1) - 1; j2++) {
 								if (OperatorQ(str1[j2]) == 0 ) {
@@ -283,7 +283,7 @@ char* Standardize(char* str1)
 								}
 							}
 						}
-						else if (OperatorQ(str1[j + 2]) == 2)//p|!q&(s|u)ÐÎ
+						else if (OperatorQ(str1[j + 2]) == 2)//p|!q&(s|u)å½¢
 						{
 							for (int j2 = j + 3; j2 <= strlen(str1) - 1; j2++) {
 								if (OperatorQ(str1[j2]) == 3 ) {
@@ -307,7 +307,7 @@ char* Standardize(char* str1)
 			}
 			i++;
 		}
-		else if (OperatorQ(str1[i]) > 3 && OperatorQ(str1[i + 1]) == 2) //p|(q|r)|sÐÎ
+		else if (OperatorQ(str1[i]) > 3 && OperatorQ(str1[i + 1]) == 2) //p|(q|r)|så½¢
 		{
 			for (int j = i+2; j < strlen(str1)-1; j++)
 			{
@@ -326,14 +326,14 @@ char* Standardize(char* str1)
 							str2[k + 2] = str1[k];
 						}
 					}
-					else//p|(q|r)&ÐÎ
+					else//p|(q|r)&å½¢
 					{
 						for (int j1 = 0; j1 <= i; j1++)
 						{
 							str2[j1] = str1[j1];
 						}
 						str2[i + 1] = '(';
-						if (OperatorQ(str1[j + 2]) == 0)//p|(q|r)&sÐÎ
+						if (OperatorQ(str1[j + 2]) == 0)//p|(q|r)&så½¢
 						{
 							for (int k = i + 1; k <= j + 3; k++)
 							{
@@ -345,7 +345,7 @@ char* Standardize(char* str1)
 								str2[k + 2] = str1[k];
 							}
 						}
-						else if (OperatorQ(str1[j + 2]) == 1)//p|(q|r)&!sÐÎ
+						else if (OperatorQ(str1[j + 2]) == 1)//p|(q|r)&!så½¢
 						{
 							for (int j2 = j + 3; j2 <= strlen(str1) - 1; j2++) {
 								if (OperatorQ(str1[j2]) == 0) {
@@ -362,7 +362,7 @@ char* Standardize(char* str1)
 								}
 							}
 						}
-						else if (OperatorQ(str1[j + 2]) == 2)//p|(q|r)&(u|s)ÐÎ
+						else if (OperatorQ(str1[j + 2]) == 2)//p|(q|r)&(u|s)å½¢
 						{
 							for (int j2 = j + 3; j2 <= strlen(str1) - 1; j2++) {
 								if (OperatorQ(str1[j2]) == 3) {
@@ -391,7 +391,7 @@ char* Standardize(char* str1)
 	return str1;
 }
 
-//ÅÐ¶Ï×Ö·ûÀàÐÍ
+//åˆ¤æ–­å­—ç¬¦ç±»åž‹
 int OperatorQ(char c) 
 {
 	switch (c) {
@@ -408,11 +408,11 @@ int OperatorQ(char c)
 
 int main() 
 {
-	int flag = 1;//ÍË³ö±êÖ¾
+	int flag = 1;//é€€å‡ºæ ‡å¿—
 	while (flag)
 	{
 		system("cls");
-		printf("ÇëÊäÈë±í´ïÊ½£º\n");
+		printf("è¯·è¾“å…¥è¡¨è¾¾å¼ï¼š\n");
 		char str1[50] = { '\0' };
 		char str2[50] = { '\0' };
 		char* str3;
@@ -421,11 +421,11 @@ int main()
 		str3 = Standardize(str1);
 		str4 = strcpy(str2, str3);
 		str3 = PolishNotation(str3);
-		printf("¶ÔÓ¦µÄ²¨À¼±í´ïÊ½£º\n");
+		printf("å¯¹åº”çš„æ³¢å…°è¡¨è¾¾å¼ï¼š\n");
 		puts(str3);
-		printf("¶ÔÓ¦µÄÄæ²¨À¼±í´ïÊ½£º\n");
+		printf("å¯¹åº”çš„é€†æ³¢å…°è¡¨è¾¾å¼ï¼š\n");
 		puts(RPN(str4));
-		printf("ÊäÈë0ÍË³ö£¬ÊäÈë1-9¼ÌÐø...\n");
+		printf("è¾“å…¥0é€€å‡ºï¼Œè¾“å…¥1-9ç»§ç»­...\n");
 		scanf("%d", &flag);
 	}
 	return 0;
