@@ -49,7 +49,7 @@
 * C, C, C, D, A
 * C, C, C, D, E
 
-![image](https://user-images.githubusercontent.com/72798752/174546019-fe464037-fdd7-436b-8721-99d01ca2f47d.png)
+![image](https://user-images.githubusercontent.com/72798752/174546019-fe464037-fdd7-436b-8721-99d01ca2f47d.png#pic_left)
 
 ## 数据范围与约定
 1 ≤ n ≤ 100, 1 ≤ m ≤ 10000
